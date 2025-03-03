@@ -5,25 +5,23 @@
     <title>NIJISANJI EN Official Store</title>
 
     <style>
-        /*背景圖片用image的background.png填滿*/
+        /* 基本設定 */
         body {
-            background-image: url('image/background.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
+            /* 移除預設邊距 */
+            margin: 0;
+            padding: 0;
         }
 
-        /*標題*/
+        /*背景*/
         .container {
+            /*設定背景顏色*/
+            background-color: white;
+
             /* 防止文字被選取 */
             user-select: none;
 
-            /*文字位置*/
-            margin-top: 15vh;
-
-            /*調整字體大小*/
-            font-size: 1.75em;
+            /* 讓內容佔滿整個視窗 */
+            height: 100vh;
 
             /* 垂直排列內容 */
             display: flex;
@@ -31,54 +29,131 @@
             align-items: center;
         }
 
-        /*圖片*/
-        .loading {
-            /*圖片位置*/
-            margin-top: 1.75vh;
-
-            /*圖片長寬設定*/
-            width: 30%;
-            height: 30%;
+        /* 標題圖片 */
+        .title {
+            /*圖片大小*/
+            width: 100%;
+            max-width: 100%;
+            height: auto;
         }
+
+        .word {
+            /*文字顏色*/
+            color: black;
+
+            /*文字大小*/
+            font-size: 3vw;
+
+            /*文字位置*/
+            text-align: center;
+
+            /*防止文字被選取*/
+            user-select: none;
+        }
+
+        .pic {
+            /* 填滿剩餘空間 */
+            flex: 1;
+
+            /*圖片等比例放大填滿空間*/
+            width: 30%;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .btnl {
+            position: fixed;
+            left: 10px; /* 靠左對齊 */
+            width: 120px; /* 設定固定寬度，讓按鈕大小一致 */
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .btnr {
+            position: fixed;
+            right: 10px; /* 靠右對齊 */
+            width: 120px; /* 設定固定寬度，讓按鈕大小一致 */
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        /* 讓 "Refresh" 按鈕在上方 */
+        #refreshBtn {
+            bottom: 7px; /* 離底部 7px */
+        }
+
+        /* 讓 "Twitter" 按鈕在下方 */
+        #twitterBtn {
+            bottom: 70px; /* 離底部 70px */
+        }
+
+        #YTBtn {
+            bottom: 7px; /* 離底部 7px */
+        }
+
+        /* 滑鼠移到按鈕上時改變顏色 */
+        .btnr:hover {
+            background-color: #0056b3;
+        }
+        .btnl:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="container">
-        <em>Now Loading...</em>
-        <em>Please Wait Patiently!</em>
-        <img class="loading" src="image/Nijisanji_Logo_0.png" alt="logo_0">
+        <img class="title" src="image/background.png" alt="EN Store">
+        <p class="word">Now loading...</p>
+        <img class="pic" src="image/Nijisanji_Logo_0.png" alt="EN Store">
+
     </div>
 
-    <script>
-        // 用 javascript 預載圖片1 Nijisanji_Logo_1.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_1.png';
-        // 用 javascript 預載圖片2 Nijisanji_Logo_2.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_2.png';
-        // 用 javascript 預載圖片3 Nijisanji_Logo_3.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_3.png';
-        // 用 javascript 預載圖片4 Nijisanji_Logo_4.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_4.png';
-        // 用 javascript 預載圖片5 Nijisanji_Logo_5.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_5.png';
-        // 用 javascript 預載圖片6 Nijisanji_Logo_6.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_6.png';
-        // 用 javascript 預載圖片7 Nijisanji_Logo_7.png
-        var img = new Image();
-        img.src = 'image/Nijisanji_Logo_7.png';
+    <button class="btnl" id="refreshBtn">Refresh</button>
+    <button class="btnr" id="twitterBtn">Check our X</button>
+    <button class="btnr" id="YTBtn">Check our Youtube</button>
 
-        // 寫一個function 讓圖片可以從0到7循環播放，0.5秒切換一次
-        var i = 0;
-        setInterval(function() {
-            document.querySelector('.loading').src = 'image/Nijisanji_Logo_' + i + '.png';
-            i = (i + 1) % 8;
-        }, 500);
+    <script>
+        // 用 javascript 預載圖片所有圖片
+        window.onload = function() {
+            const images = [];
+            for (let j = 0; j < 8; j++) {
+                images[j] = new Image();
+                images[j].src = 'image/Nijisanji_Logo_' + j + '.png';
+            }
+
+            // 間隔0.5秒循環撥放image/Nijisanji_Logo_0 ~ 7.png
+            let i = 0;
+            setInterval(() => {
+                document.querySelector('.pic').src = images[i].src;
+                i = (i + 1) % images.length;
+            }, 500);
+        };
+
+        document.getElementById('refreshBtn').addEventListener('click', function() {
+            location.reload(); // 重新整理頁面
+        });
+
+        document.getElementById('twitterBtn').addEventListener('click', function() {
+            window.open('https://twitter.com/NIJISANJI_World', '_blank'); // 開啟 Twitter 新分頁
+        });
+
+        document.getElementById('YTBtn').addEventListener('click', function() {
+            window.open('https://t.co/IPE1YklshE', '_blank'); // 開啟 YT 新分頁
+        });
 
     </script>
 
